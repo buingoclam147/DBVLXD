@@ -2,26 +2,31 @@ const express = require('express')
 const router = express.Router();
 
 const {
-    Category
+    Employe
 } = require('../models');
+
 router.get('/', (req, res) => {
-    Category.find({}).then((c) => {
+    Employe.find({}).then((c) => {
         res.send(c);
     })
 })
-router.post('/', (req, res) => {    
-    let name = req.body.name;
+
+router.post('/', (req, res) => {
+    let fullName = req.body.fullName;
+    let phoneNumber = req.body.phoneNumber;
+    let sex = req.body.sex;
+    let dayOfBirt = new Date(req.body.dayOfBirt).getTime();
+    let address = req.body.address;
     let note = req.body.note;
-    let newCategory = new Category({
-        name,
-        note
+    let newEmploye = new Employe({
+        fullName, phoneNumber, sex, dayOfBirt, address,note
     })
-    newCategory.save().then((x) => {
+    newEmploye.save().then((x) => {
         res.send(x);
     })
 });
 router.patch('/:id', (req, res) => {
-    Category.findOneAndUpdate({
+    Employe.findOneAndUpdate({
         _id: req.params.id
     }, {
         //$set means check where req.body changes and update there
@@ -30,7 +35,7 @@ router.patch('/:id', (req, res) => {
 
 });
 router.delete('/:id', (req, res) => {
-    Category.findOneAndRemove({
+    Employe.findOneAndRemove({
         _id: req.params.id
     }).then(x => res.send(x))
 })

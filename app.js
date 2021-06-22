@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 
-// load in the mongoose models
+// declare all models 
 const {
   Category,
   Customer,
@@ -24,11 +24,14 @@ const {
   Product,
   Supplier
 } = require('./models')
- 
-const categoryRouter = require('./routes/category.route')
-
-
-app.use('/api/category', categoryRouter)
+ //declare route
+const categoryRouter = require('./routes/category.route');
+const employeAccountRouter = require('./routes/employe-account.route');
+const employeRouter = require('./routes/employe.route');
+// create API 
+app.use('/api/category', categoryRouter);
+app.use('/api', employeAccountRouter);
+app.use('/api/employe', employeRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)

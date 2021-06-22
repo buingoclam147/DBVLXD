@@ -17,7 +17,7 @@ const Employe = new mongoose.Schema({
         trim: true
     },
     dayOfBirt: {
-        type: Date,
+        type: Number,
         trim: true
     },
     address: {
