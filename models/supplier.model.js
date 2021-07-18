@@ -13,6 +13,6 @@ const Supplier = new mongoose.Schema({
         type: String,
         minlength: 10,
         trim: true
-    }
+    },
 })
 module.exports = mongoose.model('Supplier',Supplier);

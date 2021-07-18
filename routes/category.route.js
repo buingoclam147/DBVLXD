@@ -1,38 +1,12 @@
 const express = require('express')
 const router = express.Router();
 
-const {
-    Category
-} = require('../models');
-router.get('/', (req, res) => {
-    Category.find({}).then((c) => {
-        res.send(c);
-    })
-})
-router.post('/', (req, res) => {    
-    let name = req.body.name;
-    let note = req.body.note;
-    let newCategory = new Category({
-        name,
-        note
-    })
-    newCategory.save().then((x) => {
-        res.send(x);
-    })
-});
-router.patch('/:id', (req, res) => {
-    Category.findOneAndUpdate({
-        _id: req.params.id
-    }, {
-        //$set means check where req.body changes and update there
-        $set: req.body
-    }).then(x => res.send(x))
+const { getList, getOne, create, deleteMany, update, deleteOne } = require('../controllers/category.controller');
 
-});
-router.delete('/:id', (req, res) => {
-    Category.findOneAndRemove({
-        _id: req.params.id
-    }).then(x => res.send(x))
-})
-
+router.get('/', getList)
+router.get('/:id', getOne);
+router.post('/', create);
+router.post('/delete-many', deleteMany);
+router.patch('/:id', update);
+router.delete('/:id', deleteOne);
 module.exports = router;
