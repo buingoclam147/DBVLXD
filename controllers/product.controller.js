@@ -1,26 +1,24 @@
 const { Product } = require('../models');
 const utils = require('../shared/utils');
 
-var getList = (req, res) => {
+const getList = (req, res) => {
+    req.query.price = [Number(req.query.price.split(',')[0]), Number(req.query.price.split(',')[1])];
     let perPage = Number(req.query.perPage) || 10;
     let page = Number(req.query.page) || 0;
-    let searchCategoryId = req.query.categoryId ? req.query.categoryId : '';
-    let searchSupplierId = req.query.supplierId ? req.query.supplierId : '';
     let searchName = req.query.name ? req.query.name : '';
     let searchPriceMin = req.query.price[0] ? req.query.price[0] : req.query.price[0] = 0;
-    let searchPriceMax = req.query.price[1]? req.query.price[1]: req.query.price[1]=99999999;
-    Product.find({
-        categoryId: {searchCategoryId},
-        supplierId: {searchSupplierId},
+    let searchPriceMax = req.query.price[1] * 1000 ? req.query.price[1] * 1000 : req.query.price[1] = 9999999;
+    let filter = {
         name: { '$regex': `${searchName}` },
-        prive: {'$gte':  `${searchPriceMin}`},
-        prive: {'$$lte':  `${searchPriceMax}`}
-    })
+        price: { '$gte': `${searchPriceMin}` },
+        price: { '$lte': `${searchPriceMax}` }
+    }
+    req.query.categoryId != "" && req.query.categoryId != "null" ? filter.categoryId = req.query.categoryId : filter;
+    req.query.supplierId != "" && req.query.supplierId != "null"? filter.supplierId = req.query.supplierId : filter;
+    Product.find(filter)
         .limit(perPage)
         .skip(perPage * page).then(x => {
-            Product.find({
-                name: { '$regex': `${searchName}` }
-            }).count().then(count => {
+            Product.find(filter).count().then(count => {
                 res.send({
                     total: count,
                     data: x

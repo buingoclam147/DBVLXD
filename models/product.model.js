@@ -16,6 +16,7 @@ const Product = new mongoose.Schema({
     name: {
         type: String,
         require: true,
+        unique: true,
         minlength: 1
     },
     price: {
@@ -31,12 +32,6 @@ const Product = new mongoose.Schema({
     },
     origin: {
         type: String,
-        require: true,
-        minlength: 1
-    },
-    illustration:{
-        type: String,
-        trim: true,
         require: true,
         minlength: 1
     },

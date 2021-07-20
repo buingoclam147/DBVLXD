@@ -1,7 +1,7 @@
 const { Supplier } = require('../models');
 const utils = require('../shared/utils');
 
-var getList = (req, res) => {
+const getList = (req, res) => {
     let perPage = Number(req.query.perPage) || 10;
     let page = Number(req.query.page) || 0;
     let searchName = req.query.searchName ? req.query.searchName : '';
