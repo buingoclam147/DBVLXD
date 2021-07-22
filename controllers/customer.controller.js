@@ -1,20 +1,21 @@
-
-const { Category } = require('../models');
+const { Customer } = require('../models');
 const utils = require('../shared/utils');
 
 var getList = (req, res) => {
     const query = req.query;
     let perPage = Number(query.perPage) || 10;
     let page = Number(query.page) || 0;
-    let searchName = query.searchName ? query.searchName : '';
-    Category.find({
-        name: { '$regex': `${searchName}` }
-    })
+    let fullName = query.fullName ? query.fullName : '';
+    let address = query.address ? query.address : '';
+    let filter = {
+        fullName: { $regex: fullName },
+        address: { $regex: address },
+    }
+    query.sex && query.sex != "null" ? filter.sex = query.sex : filter;
+    Customer.find(filter)
         .limit(perPage)
         .skip(perPage * page).then(x => {
-            Category.find({
-                name: { '$regex': `${searchName}` }
-            }).count().then(count => {
+            Customer.find(filter).count().then(count => {
                 res.send({
                     total: count,
                     data: x
@@ -26,7 +27,7 @@ var getList = (req, res) => {
     //     name: 'asc'
     // })
     // .exec(function(err, events) {
-    //     Category.count().exec(function(err, count) {
+    //     Customer.count().exec(function(err, count) {
     //         res.render('events', {
     //             events: events,
     //             page: page,
@@ -39,20 +40,20 @@ var getList = (req, res) => {
 
 
 const getOne = (req, res) => {
-    utils.getOne(req, res, Category);
+    utils.getOne(req, res, Customer);
 }
 const create = (req, res) => {
-    utils.create(req, res, Category);
+    utils.create(req, res, Customer);
 }
 const deleteMany = async (req, res) => {
-    await utils.deleteMany(req, res, Category);
+    await utils.deleteMany(req, res, Customer);
 }
 const update = (req, res) => {
-    utils.update(req, res, Category);
+    utils.update(req, res, Customer);
 
 }
 const deleteOne = (req, res) => {
-    utils.deleteOne(req, res, Category);
+    utils.deleteOne(req, res, Customer);
 }
 module.exports = {
     getList,

@@ -23,9 +23,7 @@ app.use(cors())
 const {
   Category,
   Customer,
-  CustomerAccount,
   Employe,
-  EmployeAccount,
   InvoiceDetail,
   Invoice,
   Product,
@@ -34,15 +32,15 @@ const {
 //declare route
 const supplierRouter = require('./routes/supplier.route');
 const categoryRouter = require('./routes/category.route');
-const employeAccountRouter = require('./routes/employe-account.route');
 const employeRouter = require('./routes/employe.route');
 const productRouter = require('./routes/product.route');
+const customerRouter = require('./routes/customer.route');
 // create API 
 app.use('/api/supplier', supplierRouter);
 app.use('/api/category', categoryRouter);
-app.use('/api', employeAccountRouter);
 app.use('/api/employe', employeRouter);
 app.use('/api/product', productRouter);
+app.use('/api/customer', customerRouter);
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {

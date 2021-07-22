@@ -2,10 +2,11 @@ const { Supplier } = require('../models');
 const utils = require('../shared/utils');
 
 const getList = (req, res) => {
-    let perPage = Number(req.query.perPage) || 10;
-    let page = Number(req.query.page) || 0;
-    let searchName = req.query.searchName ? req.query.searchName : '';
-    let searchAddress = req.query.address ? req.query.address : '';
+    const query = req.query;
+    let perPage = Number(query.perPage) || 10;
+    let page = Number(query.page) || 0;
+    let searchName = query.searchName ? query.searchName : '';
+    let searchAddress = query.address ? query.address : '';
     Supplier.find({
         name: { '$regex': `${searchName}` },
         address: { '$regex': `${searchAddress}` }
