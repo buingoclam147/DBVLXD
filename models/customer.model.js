@@ -28,6 +28,10 @@ const Customer = new mongoose.Schema({
         type: Boolean,
         trim: true
     },
+    dateOfBirth: {
+        type: Number,
+        trim: true
+    },
     address: {
         type: String,
         trim: true

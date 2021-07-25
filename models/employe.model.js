@@ -28,7 +28,7 @@ const Employe = new mongoose.Schema({
         type: Boolean,
         trim: true
     },
-    dayOfBirt: {
+    dateOfBirth: {
         type: Number,
         trim: true
     },
@@ -37,6 +37,10 @@ const Employe = new mongoose.Schema({
     },
     note:{
         type: String,
+    },
+    role:{
+        type: String,
+        trim: true
     }
 
 })
