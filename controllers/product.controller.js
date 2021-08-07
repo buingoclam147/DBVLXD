@@ -2,20 +2,18 @@ const { Product } = require('../models');
 const utils = require('../shared/utils');
 
 const getList = (req, res) => {
-    const query = req.query;
-    query.price = [Number(query.price.split(',')[0]), Number(query.price.split(',')[1])];
-    let perPage = Number(query.perPage) || 10;
-    let page = Number(query.page) || 0;
-    let searchName = query.name ? query.name : '';
-    let searchPriceMin = query.price[0] * 1 ? query.price[0] * 1 : query.price[0] = 0;
-    let searchPriceMax = query.price[1] * 1 ? query.price[1] * 1 : query.price[1] = 9999999;
-    let filter = {
-        name: { $regex: searchName },
-        price: { $gte: searchPriceMin, $lte: searchPriceMax }
+    const filter = {};
+    const query = { ...req.query };
+    query.price = query.price ? query.price : '0,9999999999999999';
+    query.price = query.price.split(',').map(x => Number(x));
 
-    }
-    query.categoryId != "" && query.categoryId != "null" ? filter.categoryId = query.categoryId : filter;
-    query.supplierId != "" && query.supplierId != "null" ? filter.supplierId = query.supplierId : filter;
+    const perPage = Number(query.perPage) || 10;
+    const page = Number(query.page) || 0;
+    if (query.name) filter.name = { $regex: searchName };
+    if (query.price) filter.price = { $gte: query.price[0], $lte: query.price[1] }
+    if (query.categoryId) filter.categoryId = query.categoryId;
+    if (query.supplierId) filter.supplierId = query.supplierId;
+
     Product.find(filter)
         .limit(perPage)
         .skip(perPage * page).then(x => {

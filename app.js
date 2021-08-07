@@ -27,7 +27,8 @@ const {
   InvoiceDetail,
   Invoice,
   Product,
-  Supplier
+  Supplier,
+  Auth
 } = require('./models')
 //declare route
 const supplierRouter = require('./routes/supplier.route');
@@ -35,12 +36,15 @@ const categoryRouter = require('./routes/category.route');
 const employeRouter = require('./routes/employe.route');
 const productRouter = require('./routes/product.route');
 const customerRouter = require('./routes/customer.route');
+const authRouter = require('./routes/auth.route');
 // create API 
 app.use('/api/supplier', supplierRouter);
 app.use('/api/category', categoryRouter);
 app.use('/api/employe', employeRouter);
 app.use('/api/product', productRouter);
 app.use('/api/customer', customerRouter);
+app.use('/api/auth', authRouter);
+
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -56,6 +60,7 @@ app.post('/upload', upload.single('file'), function (req, res) {
   console.log(req.file);
   res.send(req.file);
 })
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })

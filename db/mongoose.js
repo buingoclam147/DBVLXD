@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/DBVLXD', {
+mongoose.connect('mongodb+srv://buingoclam147:Aa01632995337@cluster0.pbwlc.mongodb.net/VLXD?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false
