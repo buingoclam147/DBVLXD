@@ -12,15 +12,16 @@ const Invoice = new mongoose.Schema({
         minlength: 1
     },
     createAt: {
-        type: Date,
-        trim: true,
-        require: true
-    },
-    totalCash: {
-        type: Number,
+        type: String,
         trim: true,
         require: true,
         minlength: 1
-    }
+    },
+    status: {
+        type: String,
+        trim: true,
+        require: true,
+        minlength: 1
+    },
 })
 module.exports = mongoose.model('Invoice',Invoice);

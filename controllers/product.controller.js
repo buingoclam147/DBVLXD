@@ -9,7 +9,7 @@ const getList = (req, res) => {
 
     const perPage = Number(query.perPage) || 10;
     const page = Number(query.page) || 0;
-    if (query.name) filter.name = { $regex: searchName };
+    if (query.name) filter.name = { $regex: query.name };
     if (query.price) filter.price = { $gte: query.price[0], $lte: query.price[1] }
     if (query.categoryId) filter.categoryId = query.categoryId;
     if (query.supplierId) filter.supplierId = query.supplierId;

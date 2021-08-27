@@ -30,11 +30,6 @@ const Product = new mongoose.Schema({
         require: true,
         minlength: 1
     },
-    origin: {
-        type: String,
-        require: true,
-        minlength: 1
-    },
     quantity:{
         type: Number,
         trim: true,
