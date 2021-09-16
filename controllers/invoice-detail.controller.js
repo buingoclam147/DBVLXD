@@ -3,15 +3,10 @@ const utils = require('../shared/utils');
 
 var getList = (req, res) => {
     const query = req.query;
-    let perPage = Number(query.perPage) || 10;
+    let filter = {}
+    let perPage = Number(query.perPage) || 25;
     let page = Number(query.page) || 0;
-    let fullName = query.fullName ? query.fullName : '';
-    let address = query.address ? query.address : '';
-    let filter = {
-        fullName: { $regex: fullName },
-        address: { $regex: address },
-    }
-    query.sex && query.sex != "null" ? filter.sex = query.sex : filter;
+    if (query.invoiceId) filter.invoiceId = query.invoiceId;
     InvoiceDetail.find(filter)
         .limit(perPage)
         .skip(perPage * page).then(x => {
@@ -22,20 +17,6 @@ var getList = (req, res) => {
                 })
             })
         })
-        
-    // .sort({
-    //     name: 'asc'
-    // })
-    // .exec(function(err, events) {
-    //     InvoiceDetail.count().exec(function(err, count) {
-    //         res.render('events', {
-    //             events: events,
-    //             page: page,
-    //             pages: count / perPage
-    //         })
-    //     })
-    // })
-
 }
 
 

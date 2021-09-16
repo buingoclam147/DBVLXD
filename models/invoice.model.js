@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const Invoice = new mongoose.Schema({
+    code:{
+         type:String,
+         trim: true,
+         minlength:6
+    },
     employeId: {
         type: mongoose.Types.ObjectId,
         require: true,
