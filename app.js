@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = process.env.PORT;
 // require to use database 
 const mongoose = require('./db/mongoose')
 
@@ -66,5 +66,4 @@ app.post('/upload', upload.single('file'), function (req, res) {
 })
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
 })
