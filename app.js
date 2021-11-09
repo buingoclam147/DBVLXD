@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
-const port = process.env.PORT;
-// const port = '3000';
+// const port = process.env.PORT;
+const port = '3000';
 // require to use database 
 const mongoose = require('./db/mongoose')
 
