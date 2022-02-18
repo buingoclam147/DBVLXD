@@ -64,4 +64,5 @@ app.post('/upload', upload.single('file'), function (req, res) {
 })
 
 app.listen(port, () => {
+  console.log("connect database "+ port)
 })

@@ -43,16 +43,15 @@ const getOne = (req, res) => {
     utils.getOne(req, res, Customer);
 }
 const create = (req, res) => {
-    utils.create(req, res, Customer);
     userName = { userName: req.body.userName };
-    User.find(userName).then(x => {
+    Customer.find(userName).then(x => {
         if (x[0] !== undefined) {
             res.status(400).send({
                 errorCode: 2001,
             })
         }
         else {
-            utils.create(req, res, User);
+            utils.create(req, res, Customer);
         }
     }).catch(i => {
         res.status(400).send({
