@@ -4,7 +4,6 @@ const port = process.env.PORT;
 // const port = '3000';
 // require to use database 
 const mongoose = require('./db/mongoose')
-
 // require to use body 
 var bodyParser = require('body-parser')
 // parse application/x-www-form-urlencoded
@@ -18,9 +17,7 @@ app.use(express.static('./upload'))
 
 const multer = require('multer');
 
-
 app.use(cors())
-// declare all models 
 const {
   Category,
   Customer,
